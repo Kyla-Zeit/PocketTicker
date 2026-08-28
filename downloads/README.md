@@ -1,7 +1,14 @@
 # PocketTicker Android Demo
 
-Download and install the Android demo APK:
+A ready-to-install Android APK is published through GitHub Releases so reviewers can try PocketTicker without setting up React Native or Android Studio.
 
-**[Download PocketTicker-Android-demo.apk](https://raw.githubusercontent.com/Kyla-Zeit/PocketTicker/main/downloads/PocketTicker-Android-demo.apk)**
+**[Download the latest PocketTicker Android APK](https://github.com/Kyla-Zeit/PocketTicker/releases/latest/download/PocketTicker-Android-demo.apk)**
 
-Android may ask you to allow installation from your browser or file manager because this is a direct portfolio build rather than a Google Play release. PocketTicker is a demonstration app and does not execute trades, custody funds, or connect to a real wallet or brokerage account.
+## Install
+
+1. Download `PocketTicker-Android-demo.apk` on an Android device.
+2. Open the downloaded APK.
+3. If Android asks, allow installation from the browser or file manager you used to download it.
+4. Install and open PocketTicker.
+
+This is a portfolio/demo build. PocketTicker does not execute trades, connect wallets, custody funds, or move money.
