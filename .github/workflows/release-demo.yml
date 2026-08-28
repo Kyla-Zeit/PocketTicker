@@ -3,8 +3,6 @@ name: Android Demo Release
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - 'downloads/PocketTicker-Android-demo.apk'
   workflow_dispatch:
 
 permissions:
@@ -61,33 +59,13 @@ jobs:
             exit 1
           fi
           cp "$APK" PocketTicker-Android-demo.apk
-          mkdir -p downloads
-          cp "$APK" downloads/PocketTicker-Android-demo.apk
-          ls -lh PocketTicker-Android-demo.apk downloads/PocketTicker-Android-demo.apk
-
-      - name: Commit APK to repository downloads folder
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add downloads/PocketTicker-Android-demo.apk
-          if git diff --cached --quiet; then
-            echo "APK is unchanged; nothing to commit."
-          else
-            git commit -m "Update Android demo APK [skip ci]"
-            git push origin HEAD:main
-          fi
-
-      - name: Point demo tag at this build
-        shell: bash
-        run: |
-          git tag -f demo "$GITHUB_SHA"
-          git push -f origin demo
+          ls -lh PocketTicker-Android-demo.apk
 
       - name: Publish downloadable APK
         uses: softprops/action-gh-release@v2
         with:
           tag_name: demo
+          target_commitish: ${{ github.sha }}
           name: PocketTicker Android Demo
           body: |
             Installable Android demo build of PocketTicker.

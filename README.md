@@ -10,7 +10,12 @@
   <img src="https://img.shields.io/badge/TypeScript-Strict-3178C6?logo=typescript&logoColor=white" alt="TypeScript Strict" />
   <img src="https://img.shields.io/badge/Android-API_24+-3DDC84?logo=android&logoColor=white" alt="Android API 24+" />
   <img src="https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white" alt="GitHub Actions CI" />
+  <a href="https://github.com/Kyla-Zeit/PocketTicker/releases/latest/download/PocketTicker-Android-demo.apk"><img src="https://img.shields.io/badge/Download-Android_APK-success?logo=android&logoColor=white" alt="Download Android APK" /></a>
   <img src="https://img.shields.io/badge/License-MIT-green" alt="MIT License" />
+</p>
+
+<p align="center">
+  📲 <strong><a href="https://github.com/Kyla-Zeit/PocketTicker/releases/latest/download/PocketTicker-Android-demo.apk">Download Android Demo APK</a></strong> (ready to sideload on any Android device)
 </p>
 
 ---
