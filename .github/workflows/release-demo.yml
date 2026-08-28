@@ -1,0 +1,78 @@
+name: Android Demo Release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.11.0'
+          cache: npm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
+        run: sdkmanager "platform-tools" "platforms;android-37" "build-tools;37.0.0" "ndk;27.1.12297006"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Android debug APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon
+
+      - name: Prepare APK
+        shell: bash
+        run: |
+          APK=$(find android/app/build -type f -name 'app-debug.apk' | head -n 1)
+          if [ -z "$APK" ]; then
+            echo "app-debug.apk not found"
+            exit 1
+          fi
+          cp "$APK" PocketTicker-Android-demo.apk
+          ls -lh PocketTicker-Android-demo.apk
+
+      - name: Point demo tag at this build
+        shell: bash
+        run: |
+          git tag -f demo "$GITHUB_SHA"
+          git push -f origin demo
+
+      - name: Publish downloadable APK
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: demo
+          name: PocketTicker Android Demo
+          body: |
+            Installable Android demo build of PocketTicker.
+
+            This is a portfolio/demo build for Android. It does not execute trades, connect wallets, custody funds, or move money.
+
+            Download `PocketTicker-Android-demo.apk` below and sideload it on an Android device. Android may ask you to allow installation from your browser or file manager.
+          files: PocketTicker-Android-demo.apk
+          make_latest: true
+          fail_on_unmatched_files: true
